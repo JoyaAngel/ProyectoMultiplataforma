@@ -1,0 +1,40 @@
+<%- include('../partials/htmlhead'); -%>
+
+<div class="container" id="main-content">
+    <h1 class="mb-4">Bienvenido a la Escuelita</h1>
+
+    <div>
+        <button id="btnAlumnos" class="btn btn-outline-primary">Alumnos</button>
+        <button id="btnEntidades" class="btn btn-outline-primary">Entidades</button>
+        <button id="btnProfesores" class="btn btn-outline-primary">Profesores</button>
+    </div>
+
+    <div id="content">
+        <table id="mainTable" class="table table-bordered align-middle" style="width:100%">
+            <thead>
+                <tr id="tableHead"></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container" id="register-buttons">
+    <button id="btnRegisterAlumno" class="btn btn-success">Registrar Alumno</button>
+    <button id="btnRegisterEntidad" class="btn btn-success">Registrar Entidad</button>
+    <button id="btnRegisterProfesor" class="btn btn-success">Registrar Profesor</button>
+</div>
+
+<div class="container mt-4 d-none" id="formPanel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 mb-0" id="formTitle">Formulario</h2>
+        <button class="btn btn-outline-secondary btn-sm" id="btnCloseForm">Cerrar</button>
+    </div>
+
+    <div id="formMessage" class="alert d-none" role="alert"></div>
+    <div id="formContainer"></div>
+</div>
+
+<script type="module" src="/js/app.js"></script>
+
+<%- include('../partials/_htmlfoot'); -%>
