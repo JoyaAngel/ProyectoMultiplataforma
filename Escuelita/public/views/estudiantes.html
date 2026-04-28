@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Estudiantes - Academia OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-dark" href="index.html">Academia OS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">Funciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Admisiones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Académico</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <a href="dashboard.html" class="btn btn-link text-secondary text-decoration-none me-3">Perfil</a>
+                <a href="#" class="btn btn-teal px-4">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-white border-right min-vh-100">
+            <div class="position-sticky pt-4 px-3">
+                <div class="d-flex align-items-center mb-4 px-2">
+                    <div class="logo-box me-2"></div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Academia OS</h6>
+                        <small class="text-muted">Admin San Eduardo</small>
+                    </div>
+                </div>
+
+                <ul class="nav flex-column gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="dashboard.html">
+                            <span class="icon me-2">📊</span> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active d-flex align-items-center" href="estudiantes.html">
+                            <span class="icon me-2">👥</span> Estudiantes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="maestros.html">
+                            <span class="icon me-2">👨‍🏫</span> Profesores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#">
+                            <span class="icon me-2">📚</span> Clases
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#">
+                            <span class="icon me-2">📅</span> Horario
+                        </a>
+                    </li>
+                </ul>
+
+                <hr class="my-4">
+
+                <ul class="nav flex-column mb-auto">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#">
+                            <span class="icon me-2">⚙️</span> Configuración
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center text-danger" href="#">
+                            <span class="icon me-2">🚪</span> Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="mt-5 p-3 rounded-4 bg-teal-soft">
+                    <button class="btn btn-teal w-100 py-2 fw-bold text-white">+ Nuevo Registro</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+                <h1 class="h4 fw-bold">Gestión de Estudiantes</h1>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="search-box position-relative">
+                        <input type="text" class="form-control form-control-sm ps-5 bg-white border-0 shadow-sm" placeholder="Buscar...">
+                        <span class="position-absolute top-50 start-0 translate-middle-y ms-3">🔍</span>
+                    </div>
+                    <button class="btn btn-teal-dark px-4 btn-teal text-white">+ Nuevo Estudiante</button>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="alumnosTable">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4">NO. CUENTA</th>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO PATERNO</th>
+                                <th>APELLIDO MATERNO</th>
+                                <th>CURP</th>
+                                <th>TELÉFONO</th>
+                                <th>SEXO</th>
+                                <th>CORREO ELECTRÓNICO</th>
+                                <th>FECHA NACIMIENTO</th>
+                                <th>FOTO PERFIL</th>
+                                <th>ID ENTIDAD</th>
+                                <th class="text-end pe-4">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4"><code class="text-muted">12345678</code></td>
+                                <td>Juan</td>
+                                <td>Pérez</td>
+                                <td>Gómez</td>
+                                <td>PEGU981012MDFRXX09</td>
+                                <td>55-1234-5678</td>
+                                <td>M</td>
+                                <td>juan.perez@ejemplo.com</td>
+                                <td>1998-10-12</td>
+                                <td><img src="https://i.pravatar.cc/150?u=1" class="rounded-circle" width="35" alt="foto"></td>
+                                <td>9</td>
+                                <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
