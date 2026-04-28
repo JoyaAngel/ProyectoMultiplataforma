@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Profesores - Academia OS</title>
+    <title>Gestión de Estudiantes - Academia OS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="dashboard-styles.css">
@@ -12,7 +12,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top border-bottom">
     <div class="container">
-        <a class="navbar-brand fw-bold text-dark" href="index.html">Academia OS</a>
+        <a class="navbar-brand fw-bold text-dark" href="/">Academia OS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,7 +24,7 @@
                 <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
             </ul>
             <div class="d-flex align-items-center">
-                <a href="dashboard.html" class="btn btn-link text-secondary text-decoration-none me-3">Perfil</a>
+                <a href="/dashboard" class="btn btn-link text-secondary text-decoration-none me-3">Perfil</a>
                 <a href="#" class="btn btn-teal px-4">Cerrar Sesión</a>
             </div>
         </div>
@@ -45,17 +45,17 @@
 
                 <ul class="nav flex-column gap-1">
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="dashboard.html">
+                        <a class="nav-link d-flex align-items-center" href="/dashboard">
                             <span class="icon me-2">📊</span> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="estudiantes.html">
+                        <a class="nav-link active d-flex align-items-center" href="/estudiantes">
                             <span class="icon me-2">👥</span> Estudiantes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active d-flex align-items-center" href="maestros.html">
+                        <a class="nav-link d-flex align-items-center" href="/maestros">
                             <span class="icon me-2">👨‍🏫</span> Profesores
                         </a>
                     </li>
@@ -94,50 +94,56 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-                <h1 class="h4 fw-bold">Gestión de Profesores</h1>
+                <h1 class="h4 fw-bold">Gestión de Estudiantes</h1>
                 <div class="d-flex align-items-center gap-3">
                     <div class="search-box position-relative">
                         <input type="text" class="form-control form-control-sm ps-5 bg-white border-0 shadow-sm" placeholder="Buscar...">
                         <span class="position-absolute top-50 start-0 translate-middle-y ms-3">🔍</span>
                     </div>
-                    <button class="btn btn-teal-dark px-4 btn-teal text-white">+ Nuevo Profesor</button>
+                    <button class="btn btn-teal-dark px-4 btn-teal text-white">+ Nuevo Estudiante</button>
                 </div>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0" id="profesoresTable">
+                    <table class="table table-hover align-middle mb-0" id="alumnosTable">
                         <thead class="bg-light">
                             <tr>
-                                <th class="ps-4">ID PROFESOR</th>
+                                <th class="ps-4">NO. CUENTA</th>
                                 <th>NOMBRE</th>
                                 <th>APELLIDO PATERNO</th>
                                 <th>APELLIDO MATERNO</th>
                                 <th>CURP</th>
-                                <th>RFC</th>
                                 <th>TELÉFONO</th>
                                 <th>SEXO</th>
                                 <th>CORREO ELECTRÓNICO</th>
                                 <th>FECHA NACIMIENTO</th>
-                                <th>SUELDO</th>
+                                <th>ID ENTIDAD</th>
                                 <th class="text-end pe-4">ACCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="ps-4"><code class="text-muted">1</code></td>
-                                <td>Javier</td>
-                                <td>Pineda</td>
-                                <td>López</td>
-                                <td>PILJ801201HDFRXX02</td>
-                                <td>PILJ801201XX1</td>
-                                <td>55-9876-5432</td>
-                                <td>M</td>
-                                <td>javier.pineda@academia.edu</td>
-                                <td>1980-12-01</td>
-                                <td>$25,000.00</td>
-                                <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
-                            </tr>
+                            <% if (typeof alumnos !== 'undefined' && alumnos.length > 0) { %>
+                                <% alumnos.forEach(alumno => { %>
+                                    <tr>
+                                        <td class="ps-4"><code class="text-muted"><%= alumno.numero_cuenta %></code></td>
+                                        <td><%= alumno.nombre %></td>
+                                        <td><%= alumno.apellido_paterno %></td>
+                                        <td><%= alumno.apellido_materno %></td>
+                                        <td><%= alumno.curp %></td>
+                                        <td><%= alumno.telefono %></td>
+                                        <td><%= alumno.sexo %></td>
+                                        <td><%= alumno.correo_electronico %></td>
+                                        <td><%= alumno.fecha_nacimiento %></td>
+                                        <td><%= alumno.entidad_federativa ? alumno.entidad_federativa.nombre_entidad : alumno.id_entidad %></td>
+                                        <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
+                                    </tr>
+                                <% }) %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="12" class="text-center py-4">No hay estudiantes registrados.</td>
+                                </tr>
+                            <% } %>
                         </tbody>
                     </table>
                 </div>
