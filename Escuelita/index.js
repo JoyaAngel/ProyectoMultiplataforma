@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const { sequelize } = require('./bd');
+const { Alumno, Entidad_Federativa } = require('./models');
 
 app.use(express.json());
 app.set('view engine', 'ejs');
@@ -18,7 +19,31 @@ const profesorRouter = require('./routes/profesores.routes.js');
 app.use(profesorRouter);
 
 app.get('/', (req, res) => {
-    res.render('views/index');
+    res.render('public/index');
+});
+
+app.get('/dashboard', (req, res) => {
+    res.render('public/views/dashboard');
+});
+
+app.get('/estudiantes', async (req, res) => {
+    try {
+        const alumnos = await Alumno.findAll({
+            include: [{
+                model: Entidad_Federativa,
+                as: 'entidad_federativa',
+                attributes: ['nombre_entidad']
+            }]
+        });
+        res.render('public/views/estudiantes', { alumnos });
+    } catch (error) {
+        console.error('Error al obtener estudiantes:', error);
+        res.status(500).send('Error al obtener estudiantes');
+    }
+});
+
+app.get('/maestros', (req, res) => {
+    res.render('public/views/maestros');
 });
 
 sequelize
