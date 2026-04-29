@@ -28,7 +28,7 @@ export const FORMS_CONFIG = {
                 label: "Entidad Federativa",
                 type: "select-remote",
                 required: true,
-                source: "/entidades",
+                source: "/api/entidades",
                 valueKey: "id_entidad",
                 textKey: "nombre_entidad"
             }

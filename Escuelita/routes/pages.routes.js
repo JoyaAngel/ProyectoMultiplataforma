@@ -15,6 +15,6 @@ router.get('/alumnos', renderAlumnos);
 
 router.get('/profesores', renderProfesores);
 
-router.get('/entidades', renderEntidades)
+router.get('/entidades', renderEntidades);
 
 module.exports = router;
