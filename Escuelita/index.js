@@ -22,8 +22,20 @@ app.get('/', (req, res) => {
     res.render('public/index');
 });
 
-app.get('/dashboard', (req, res) => {
-    res.render('public/views/dashboard');
+app.get('/dashboard', async (req, res) => {
+    try {
+        const alumnos = await Alumno.findAll({
+            include: [{
+                model: Entidad_Federativa,
+                as: 'entidad_federativa',
+                attributes: ['nombre_entidad']
+            }]
+        });
+        res.render('public/views/dashboard', { alumnos });
+    } catch (error) {
+        console.error('Error al cargar el dashboard:', error);
+        res.status(500).send('Error al cargar el dashboard');
+    }
 });
 
 app.get('/estudiantes', async (req, res) => {

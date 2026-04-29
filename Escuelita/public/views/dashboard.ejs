@@ -6,6 +6,7 @@
     <title>Dashboard - Academia OS</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="dashboard-styles.css">
 </head>
 <body>
@@ -47,28 +48,28 @@
 
                 <ul class="nav flex-column gap-1">
                     <li class="nav-item">
-                        <a class="nav-link active d-flex align-items-center" href="/dashboard">
-                            <span class="icon me-2">📊</span> Dashboard
+                        <a class="nav-link active d-flex align-items-center view-tab" href="#" data-target="dashboard-view">
+                            <i class="fa-solid fa-chart-line icon me-2"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="/estudiantes">
-                            <span class="icon me-2">👥</span> Estudiantes
+                        <a class="nav-link d-flex align-items-center view-tab" href="#" data-target="estudiantes-view">
+                            <i class="fa-solid fa-users icon me-2"></i> Estudiantes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="/maestros">
-                            <span class="icon me-2">👨‍🏫</span> Profesores
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="#">
-                            <span class="icon me-2">📚</span> Clases
+                        <a class="nav-link d-flex align-items-center view-tab" href="#" data-target="maestros-view">
+                            <i class="fa-solid fa-chalkboard-user icon me-2"></i> Profesores
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" href="#">
-                            <span class="icon me-2">📅</span> Horario
+                            <i class="fa-solid fa-book icon me-2"></i> Clases
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#">
+                            <i class="fa-solid fa-calendar-days icon me-2"></i> Horario
                         </a>
                     </li>
                 </ul>
@@ -78,12 +79,12 @@
                 <ul class="nav flex-column mb-auto">
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center" href="#">
-                            <span class="icon me-2">⚙️</span> Configuración
+                            <i class="fa-solid fa-gear icon me-2"></i> Configuración
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center text-danger" href="#">
-                            <span class="icon me-2">🚪</span> Cerrar Sesión
+                            <i class="fa-solid fa-right-from-bracket icon me-2"></i> Cerrar Sesión
                         </a>
                     </li>
                 </ul>
@@ -95,110 +96,123 @@
         </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-                <h1 class="h4 fw-bold">Panel de Control <span class="fw-normal text-muted h6 ms-2">Año Académico 2026-2027</span></h1>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="search-box position-relative">
-                        <input type="text" class="form-control form-control-sm ps-5 bg-white border-0 shadow-sm" placeholder="Buscar...">
-                        <span class="position-absolute top-50 start-0 translate-middle-y ms-3">🔍</span>
+            
+            <!-- VISTA DASHBOARD -->
+            <div id="dashboard-view" class="content-view">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+                    <h1 class="h4 fw-bold">Panel de Control <span class="fw-normal text-muted h6 ms-2">Año Académico 2026-2027</span></h1>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="search-box position-relative">
+                            <input type="text" class="form-control form-control-sm ps-5 bg-white border-0 shadow-sm" placeholder="Buscar...">
+                            <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        </div>
+                        <img src="https://i.pravatar.cc/150?u=4" class="rounded-circle border" width="35" alt="Perfil">
                     </div>
-                    <img src="https://i.pravatar.cc/150?u=4" class="rounded-circle border" width="35" alt="Perfil">
                 </div>
-            </div>
 
-            <div class="row g-4 mb-4">
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm p-3 rounded-4">
-                        <small class="text-uppercase text-muted fw-bold x-small">Total Estudiantes</small>
-                        <div class="d-flex justify-content-between align-items-end mt-2">
-                            <h2 class="mb-0 fw-bold">1,284</h2>
-                            <span class="badge bg-success-soft text-success">+12%</span>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 rounded-4">
+                            <small class="text-uppercase text-muted fw-bold x-small">Total Estudiantes</small>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <h2 class="mb-0 fw-bold">1,284</h2>
+                                <span class="badge bg-success-soft text-success">+12%</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm p-3 rounded-4">
-                        <small class="text-uppercase text-muted fw-bold x-small">Profesores</small>
-                        <div class="d-flex justify-content-between align-items-end mt-2">
-                            <h2 class="mb-0 fw-bold">94</h2>
-                            <span class="text-muted small">Estable</span>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 rounded-4">
+                            <small class="text-uppercase text-muted fw-bold x-small">Profesores</small>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <h2 class="mb-0 fw-bold">94</h2>
+                                <span class="text-muted small">Estable</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm p-3 rounded-4">
-                        <small class="text-uppercase text-muted fw-bold x-small">Asistencia Promedio</small>
-                        <div class="d-flex justify-content-between align-items-end mt-2">
-                            <h2 class="mb-0 fw-bold">94.2%</h2>
-                            <div class="progress w-25 mb-2" style="height: 6px;">
-                                <div class="progress-bar bg-teal" style="width: 94%"></div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 rounded-4">
+                            <small class="text-uppercase text-muted fw-bold x-small">Asistencia Promedio</small>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <h2 class="mb-0 fw-bold">94.2%</h2>
+                                <div class="progress w-25 mb-2" style="height: 6px;">
+                                    <div class="progress-bar bg-teal" style="width: 94%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card border-0 shadow-sm p-3 rounded-4">
+                            <small class="text-uppercase text-muted fw-bold x-small">Pagos Pendientes</small>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <h2 class="mb-0 fw-bold">42</h2>
+                                <span class="text-orange fw-bold small">Requiere Acción</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card border-0 shadow-sm p-3 rounded-4">
-                        <small class="text-uppercase text-muted fw-bold x-small">Pagos Pendientes</small>
-                        <div class="d-flex justify-content-between align-items-end mt-2">
-                            <h2 class="mb-0 fw-bold">42</h2>
-                            <span class="text-orange fw-bold small">Requiere Acción</span>
-                        </div>
-                    </div>
-                </div>
+
+                <%- include('mainTables', { tableType: 'estudiantes' }) %>
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold">Gestión de Estudiantes</h5>
-                    <div class="btn-group">
-                        <button class="btn btn-outline-secondary btn-sm">Filtrar</button>
-                        <button class="btn btn-outline-secondary btn-sm">Exportar</button>
+            <!-- VISTA ESTUDIANTES -->
+            <div id="estudiantes-view" class="content-view d-none">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+                    <h1 class="h4 fw-bold">Gestión de Estudiantes</h1>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="search-box position-relative">
+                            <input type="text" class="form-control form-control-sm ps-5 bg-white border-0 shadow-sm" placeholder="Buscar...">
+                            <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        </div>
+                        <button class="btn btn-teal-dark px-4 btn-teal text-white">+ Nuevo Estudiante</button>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="bg-light">
-                            <tr>
-                                <th class="ps-4">NOMBRE</th>
-                                <th>GRADO</th>
-                                <th>ID ESTUDIANTE</th>
-                                <th>ESTADO</th>
-                                <th>ASISTENCIA</th>
-                                <th class="text-end pe-4">ACCIONES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="ps-4">
-                                    <div class="d-flex align-items-center">
-                                        <img src="https://i.pravatar.cc/150?u=1" class="rounded-circle me-3" width="35">
-                                        <div>
-                                            <div class="fw-bold">Alisha Thompson</div>
-                                            <small class="text-muted">alisha.t@academia.edu</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>12vo Grado</td>
-                                <td><code class="text-muted">#STU-98210</code></td>
-                                <td><span class="badge bg-success-soft text-success rounded-pill">Activo</span></td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="progress flex-grow-1 me-2" style="height: 6px; width: 60px;">
-                                            <div class="progress-bar bg-teal" style="width: 98%"></div>
-                                        </div>
-                                        <small class="fw-bold">98%</small>
-                                    </div>
-                                </td>
-                                <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
-                            </tr>
-                            </tbody>
-                    </table>
-                </div>
+                <%- include('mainTables', { tableType: 'estudiantes' }) %>
             </div>
+
+            <!-- VISTA PROFESORES -->
+            <div id="maestros-view" class="content-view d-none">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+                    <h1 class="h4 fw-bold">Gestión de Profesores</h1>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="search-box position-relative">
+                            <input type="text" class="form-control form-control-sm ps-5 bg-white border-0 shadow-sm" placeholder="Buscar...">
+                            <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                        </div>
+                        <button class="btn btn-teal-dark px-4 btn-teal text-white">+ Nuevo Profesor</button>
+                    </div>
+                </div>
+
+                <%- include('mainTables', { tableType: 'maestros' }) %>
+            </div>
+
         </main>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabs = document.querySelectorAll(".view-tab");
+        const views = document.querySelectorAll(".content-view");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", (e) => {
+                e.preventDefault();
+                
+                // Remover clase active de todos los tabs
+                tabs.forEach(t => t.classList.remove("active"));
+                // Agregar clase active al tab clickeado
+                tab.classList.add("active");
+
+                // Ocultar todas las vistas
+                views.forEach(v => v.classList.add("d-none"));
+                
+                // Mostrar la vista objetivo
+                const targetId = tab.getAttribute("data-target");
+                document.getElementById(targetId).classList.remove("d-none");
+            });
+        });
+    });
+</script>
 </body>
 </html>
