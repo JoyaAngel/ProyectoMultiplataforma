@@ -12,7 +12,6 @@ export const TABLES_CONFIG = {
             <th>Fecha de Nacimiento</th>
             <th>Entidad Federativa</th>
         `,
-        endpoint: '/alumnos',
         columns: [
             { data: 'numero_cuenta' },
             { data: 'nombre' },
@@ -32,7 +31,6 @@ export const TABLES_CONFIG = {
             <th>Nombre de Entidad</th>
             <th>Abreviatura</th>
         `,
-        endpoint: '/entidades',
         columns: [
             { data: 'id_entidad' },
             { data: 'nombre_entidad' },
@@ -53,7 +51,6 @@ export const TABLES_CONFIG = {
             <th>Fecha de Nacimiento</th>
             <th>Sueldo</th>
         `,
-        endpoint: '/profesores',
         columns: [
             { data: 'id_profesor' },
             { data: 'nombre' },

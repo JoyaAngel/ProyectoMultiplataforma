@@ -1,0 +1,36 @@
+<nav class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-white border-right min-vh-100">
+    <div class="position-sticky pt-4 px-3">
+        <ul class="nav flex-column gap-1">
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center <%= currentPage === 'dashboard' ? 'active' : '' %>" href="/dashboard">
+                    <span class="icon me-2">📊</span> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center <%= currentPage === 'alumnos' ? 'active' : '' %>" href="/alumnos">
+                    <span class="icon me-2">👥</span> Alumnos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center <%= currentPage === 'profesores' ? 'active' : '' %>" href="/profesores">
+                    <span class="icon me-2">👨‍🏫</span> Profesores
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center <%= currentPage === 'entidades' ? 'active' : '' %>" href="/entidades">
+                    <span class="icon me-2">📍</span> Entidades
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" href="#">
+                    <span class="icon me-2">📚</span> Clases
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center" href="#">
+                    <span class="icon me-2">📅</span> Horario
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
