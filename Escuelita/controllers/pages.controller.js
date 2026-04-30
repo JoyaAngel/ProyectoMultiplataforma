@@ -14,9 +14,19 @@ async function renderEntidades(req, res) {
     return res.render('entidades', {currentPage: 'entidades'});
 }
 
+async function renderHorarios(req, res) {
+    return res.render('horarios', {currentPage: 'horarios'});
+}
+
+async function renderGrupos(req, res){
+    return res.render('grupos', {currentPage: 'grupos'});
+}
+
 module.exports = {
     renderDashboard,
     renderAlumnos,
     renderProfesores,
-    renderEntidades
+    renderEntidades,
+    renderHorarios,
+    renderGrupos
 };
