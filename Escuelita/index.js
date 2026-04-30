@@ -24,6 +24,12 @@ app.use(alumnosRouter);
 const profesorRouter = require('./routes/profesores.routes.js');
 app.use(profesorRouter);
 
+const horariosRouter = require('./routes/horarios.routes.js');
+app.use(horariosRouter);
+
+const gruposRouter = require('./routes/grupos.routes.js');
+app.use(gruposRouter);
+
 sequelize
     .authenticate()
     .then(() => {
