@@ -1,5 +1,4 @@
 const { Grupo } = require("../models");
-const router = require("../routes/pages.routes");
 
 async function getGrupos(req, res) {
 
