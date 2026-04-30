@@ -37,6 +37,39 @@ export const TABLES_CONFIG = {
             { data: 'abreviatura' }
         ]
     },
+    horarios: {
+
+        headers: `
+            <th>ID</th>
+            <th>Día</th>
+            <th>Hora de inicio</th>
+            <th>Hora de término</th>
+        `,
+
+        columns: [
+
+            { data: 'id_horario' },
+            { data: 'dia'},
+            { data: 'hora_inicio'},
+            { data: 'hora_fin'}
+
+        ]
+
+    },
+    grupos: {
+
+        headers: `
+            <th>ID</th>
+            <th>Nombre del grupo</th>
+        `,
+
+        columns: [
+
+            { data: 'id_grupo' },
+            { data: 'nombre_grupo' },
+
+        ]
+    },
     profesores: {
         headers: `
             <th>ID</th>

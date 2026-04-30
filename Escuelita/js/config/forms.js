@@ -43,6 +43,47 @@ export const FORMS_CONFIG = {
             { name: "abreviatura", label: "Abreviatura", type: "text", required: true }
         ]
     },
+    horarios: {
+
+        title: "Registrar Horario",
+        endpoint: "/api/horarios",
+        submitLabel: "Guardar Horario",
+        fields: [
+            {
+                name: "dia",
+                label: "Dia",
+                type: "select",
+                required: true,
+                options: [
+
+                    //Aquí los values vab sin tilde, en la base no tienen
+                    {value: "", text: "Seleccione"},
+                    {value: "Lunes", text: "Lunes"},
+                    {value: "Martes", text: "Martes"},
+                    {value: "Miercoles", text: "Miércoles"},
+                    {value: "Jueves", text: "Jueves"},
+                    {value: "Viernes", text: "Viernes"},
+                    {value: "Sabado", text: "Sábado"},
+                ]
+            },
+            {
+                name: "hora_inicio",
+                label: "Hora de inicio",
+                //Ni perra idea, auxilio
+            }
+        ]
+
+    },
+    grupo: {
+
+        title: "Registrar Grupo",
+        endpoint: "/api/grupo",
+        submitLabel: "Guardar Grupo",
+        fields: [
+            { name: "nombre_grupo", label: "Nombre del grupo", type: "text", required: true }
+        ]
+
+    },
     profesores: {
         title: "Registrar Profesor",
         endpoint: "/api/profesores",
