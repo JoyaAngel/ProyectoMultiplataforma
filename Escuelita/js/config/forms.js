@@ -7,7 +7,7 @@ export const FORMS_CONFIG = {
             { name: "numero_cuenta", label: "Número de Cuenta", type: "number", required: true },
             { name: "nombre", label: "Nombre", type: "text", required: true },
             { name: "apellido_paterno", label: "Apellido Paterno", type: "text", required: true },
-            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: true },
+            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: false },
             { name: "curp", label: "CURP", type: "text", required: true },
             { name: "telefono", label: "Teléfono", type: "text", required: true },
             {
@@ -44,45 +44,36 @@ export const FORMS_CONFIG = {
         ]
     },
     horarios: {
-
         title: "Registrar Horario",
         endpoint: "/api/horarios",
         submitLabel: "Guardar Horario",
         fields: [
             {
                 name: "dia",
-                label: "Dia",
+                label: "Día",
                 type: "select",
                 required: true,
                 options: [
-
-                    //Aquí los values vab sin tilde, en la base no tienen
-                    {value: "", text: "Seleccione"},
-                    {value: "Lunes", text: "Lunes"},
-                    {value: "Martes", text: "Martes"},
-                    {value: "Miercoles", text: "Miércoles"},
-                    {value: "Jueves", text: "Jueves"},
-                    {value: "Viernes", text: "Viernes"},
-                    {value: "Sabado", text: "Sábado"},
+                    { value: "", text: "Seleccione" },
+                    { value: "Lunes", text: "Lunes" },
+                    { value: "Martes", text: "Martes" },
+                    { value: "Miercoles", text: "Miércoles" },
+                    { value: "Jueves", text: "Jueves" },
+                    { value: "Viernes", text: "Viernes" },
+                    { value: "Sabado", text: "Sábado" },
                 ]
             },
-            {
-                name: "hora_inicio",
-                label: "Hora de inicio",
-                //Ni perra idea, auxilio
-            }
+            { name: "hora_inicio", label: "Hora de inicio", type: "time", required: true },
+            { name: "hora_fin", label: "Hora de término", type: "time", required: true }
         ]
-
     },
-    grupo: {
-
+    grupos: {
         title: "Registrar Grupo",
-        endpoint: "/api/grupo",
+        endpoint: "/api/grupos",
         submitLabel: "Guardar Grupo",
         fields: [
             { name: "nombre_grupo", label: "Nombre del grupo", type: "text", required: true }
         ]
-
     },
     profesores: {
         title: "Registrar Profesor",
@@ -91,7 +82,7 @@ export const FORMS_CONFIG = {
         fields: [
             { name: "nombre", label: "Nombre", type: "text", required: true },
             { name: "apellido_paterno", label: "Apellido Paterno", type: "text", required: true },
-            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: true },
+            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: false },
             { name: "curp", label: "CURP", type: "text", required: true },
             { name: "rfc", label: "RFC", type: "text", required: true },
             { name: "telefono", label: "Teléfono", type: "text", required: true },

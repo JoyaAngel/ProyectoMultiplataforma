@@ -43,13 +43,12 @@ async function createHorario(req, res) {
 
         }
 
-        //Validación de la hora de inicio contra la final
-        if(hora_inicio < hora_fin){
-
+        // Validación de la hora de inicio contra la final
+        // Formato esperado: "HH:MM" (string), comparación lexicográfica funciona si viene con cero a la izquierda.
+        if (hora_inicio >= hora_fin) {
             return res.status(400).json({
-                error: 'La hora de término no puede ser menor a la hora de inicio.'
+                error: 'La hora de término debe ser mayor a la hora de inicio.'
             });
-
         }
 
         const nuevoHorario = await Horario.create({dia, hora_inicio, hora_fin});

@@ -33,7 +33,7 @@ async function createGrupo(req, res) {
         const nuevoGrupo = await Grupo.create({nombre_grupo});
 
         return res.status(201).json({
-            message: "Horario creado correctamente",
+            message: "Grupo creado correctamente",
             data: nuevoGrupo
         });
 

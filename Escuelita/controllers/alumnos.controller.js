@@ -37,7 +37,6 @@ async function createAlumno(req, res) {
             !numero_cuenta ||
             !nombre ||
             !apellido_paterno ||
-            !apellido_materno ||
             !curp ||
             !telefono ||
             !sexo ||
@@ -52,7 +51,7 @@ async function createAlumno(req, res) {
             numero_cuenta,
             nombre,
             apellido_paterno,
-            apellido_materno,
+            apellido_materno: apellido_materno || null,
             curp,
             telefono,
             sexo,

@@ -1,14 +1,21 @@
 const express = require('express');
 const path = require('path');
 
+require('dotenv').config();
+
 const app = express();
-const port = 3000;
+const port = Number(process.env.PORT) || 3000;
 const { sequelize } = require('./bd');
 
 app.use(express.json());
-app.use(express.static(__dirname));
+
+app.use('/assets/views', (req, res) => res.sendStatus(404));
+app.use('/assets/partials', (req, res) => res.sendStatus(404));
+app.use('/assets', express.static(path.join(__dirname, 'public'), { index: false }));
+app.use('/assets/js', express.static(path.join(__dirname, 'js'), { index: false }));
+
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'public/views'));
+app.set('views', path.join(__dirname, 'public', 'views'));
 
 // Ruta de páginas
 const pagesRouter = require('./routes/pages.routes.js');
