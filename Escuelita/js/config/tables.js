@@ -12,7 +12,6 @@ export const TABLES_CONFIG = {
             <th>Fecha de Nacimiento</th>
             <th>Entidad Federativa</th>
         `,
-        endpoint: '/alumnos',
         columns: [
             { data: 'numero_cuenta' },
             { data: 'nombre' },
@@ -32,11 +31,43 @@ export const TABLES_CONFIG = {
             <th>Nombre de Entidad</th>
             <th>Abreviatura</th>
         `,
-        endpoint: '/entidades',
         columns: [
             { data: 'id_entidad' },
             { data: 'nombre_entidad' },
             { data: 'abreviatura' }
+        ]
+    },
+    horarios: {
+
+        headers: `
+            <th>ID</th>
+            <th>Día</th>
+            <th>Hora de inicio</th>
+            <th>Hora de término</th>
+        `,
+
+        columns: [
+
+            { data: 'id_horario' },
+            { data: 'dia'},
+            { data: 'hora_inicio'},
+            { data: 'hora_fin'}
+
+        ]
+
+    },
+    grupos: {
+
+        headers: `
+            <th>ID</th>
+            <th>Nombre del grupo</th>
+        `,
+
+        columns: [
+
+            { data: 'id_grupo' },
+            { data: 'nombre_grupo' },
+
         ]
     },
     profesores: {
@@ -53,7 +84,6 @@ export const TABLES_CONFIG = {
             <th>Fecha de Nacimiento</th>
             <th>Sueldo</th>
         `,
-        endpoint: '/profesores',
         columns: [
             { data: 'id_profesor' },
             { data: 'nombre' },

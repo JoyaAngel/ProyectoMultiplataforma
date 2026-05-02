@@ -6,7 +6,7 @@ const {
     createEntidad
 } = require('../controllers/entidades.controller');
 
-router.get('/entidades', getEntidades);
+router.get('/api/entidades', getEntidades);
 router.post('/api/entidades', createEntidad);
 
 module.exports = router;

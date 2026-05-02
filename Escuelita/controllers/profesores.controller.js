@@ -28,7 +28,6 @@ async function createProfesor(req, res) {
         if (
             !nombre ||
             !apellido_paterno ||
-            !apellido_materno ||
             !curp ||
             !rfc ||
             !telefono ||
@@ -43,7 +42,7 @@ async function createProfesor(req, res) {
         const nuevoProfesor = await Profesor.create({
             nombre,
             apellido_paterno,
-            apellido_materno,
+            apellido_materno: apellido_materno || null,
             curp,
             rfc,
             telefono,

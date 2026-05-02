@@ -1,14 +1,28 @@
 const express = require('express');
+const path = require('path');
+
+require('dotenv').config();
+
 const app = express();
-const port = 3000;
+const port = Number(process.env.PORT) || 3000;
 const { sequelize } = require('./bd');
 const { Alumno, Entidad_Federativa } = require('./models');
 
 app.use(express.json());
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname));
-app.set('views', __dirname);
 
+app.use('/assets/views', (req, res) => res.sendStatus(404));
+app.use('/assets/partials', (req, res) => res.sendStatus(404));
+app.use('/assets', express.static(path.join(__dirname, 'public'), { index: false }));
+app.use('/assets/js', express.static(path.join(__dirname, 'js'), { index: false }));
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public', 'views'));
+
+// Ruta de páginas
+const pagesRouter = require('./routes/pages.routes.js');
+app.use(pagesRouter);
+
+// Ruta de APIs
 const entidadesRouter = require('./routes/entidades.routes.js');
 app.use(entidadesRouter);
 
@@ -18,45 +32,11 @@ app.use(alumnosRouter);
 const profesorRouter = require('./routes/profesores.routes.js');
 app.use(profesorRouter);
 
-app.get('/', (req, res) => {
-    res.render('public/index');
-});
+const horariosRouter = require('./routes/horarios.routes.js');
+app.use(horariosRouter);
 
-app.get('/dashboard', async (req, res) => {
-    try {
-        const alumnos = await Alumno.findAll({
-            include: [{
-                model: Entidad_Federativa,
-                as: 'entidad_federativa',
-                attributes: ['nombre_entidad']
-            }]
-        });
-        res.render('public/views/dashboard', { alumnos });
-    } catch (error) {
-        console.error('Error al cargar el dashboard:', error);
-        res.status(500).send('Error al cargar el dashboard');
-    }
-});
-
-app.get('/estudiantes', async (req, res) => {
-    try {
-        const alumnos = await Alumno.findAll({
-            include: [{
-                model: Entidad_Federativa,
-                as: 'entidad_federativa',
-                attributes: ['nombre_entidad']
-            }]
-        });
-        res.render('public/views/estudiantes', { alumnos });
-    } catch (error) {
-        console.error('Error al obtener estudiantes:', error);
-        res.status(500).send('Error al obtener estudiantes');
-    }
-});
-
-app.get('/maestros', (req, res) => {
-    res.render('public/views/maestros');
-});
+const gruposRouter = require('./routes/grupos.routes.js');
+app.use(gruposRouter);
 
 sequelize
     .authenticate()
