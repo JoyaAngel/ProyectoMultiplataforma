@@ -30,6 +30,24 @@ async function createGrupo(req, res) {
 
         }
 
+        //Validación de longitud del nombre de grupo (4 caracteres)
+        if(nombre_grupo.length > 4){
+
+            return res.status(400).json({
+                error: 'El nombre de grupo excede los carateres limitados (4 caracteres)'
+            })
+
+        }
+
+        //Validación de longitud del nombre de grupo (4 caracteres)
+        if(nombre_grupo.length < 4){
+
+            return res.status(400).json({
+                error: 'El nombre de grupo requiere de 4 caracteres'
+            })
+
+        }
+
         const nuevoGrupo = await Grupo.create({nombre_grupo});
 
         return res.status(201).json({
