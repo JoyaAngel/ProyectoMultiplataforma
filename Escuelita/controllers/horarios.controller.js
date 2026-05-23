@@ -68,7 +68,90 @@ async function createHorario(req, res) {
 
 }
 
+async function updateHorario(req, res) {
+
+    const diasValidos = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+
+    try{
+
+        const { id } = req.params;
+        const { dia, hora_inicio, hora_fin } = req.body;
+
+        if(!dia || !hora_inicio || !hora_fin){
+
+            return res.status(400).json({
+                error: 'Faltan parámetros obligados: dia, hora_inicio, hora_fin'
+            });
+
+        }
+
+        if(!diasValidos.includes(dia)){
+
+            return res.status(400).json({
+                error: 'Día inválido. Debe ser uno de los permitidos.'
+            });
+
+        }
+
+        if (hora_inicio >= hora_fin) {
+            return res.status(400).json({
+                error: 'La hora de término debe ser mayor a la hora de inicio.'
+            });
+        }
+
+        const horario = await Horario.findByPk(id);
+        if (!horario) {
+            return res.status(404).json({ error: 'Horario no encontrado' });
+        }
+
+        await horario.update({
+            dia,
+            hora_inicio,
+            hora_fin
+        });
+
+        return res.status(200).json({
+            message: "Horario actualizado correctamente",
+            data: horario
+        });
+
+    }catch(e){
+
+        console.error("Error al actualizar el horario:", e);
+        return res.status(500).json({ error: "Error al actualizar el horario" });
+
+    }
+
+}
+
+async function deleteHorario(req, res) {
+
+    try{
+
+        const { id } = req.params;
+        const horario = await Horario.findByPk(id);
+        if (!horario) {
+            return res.status(404).json({ error: 'Horario no encontrado' });
+        }
+
+        await horario.destroy();
+        return res.status(200).json({
+            message: "Horario eliminado correctamente",
+            data: horario
+        });
+
+    }catch(e){
+
+        console.error("Error al eliminar el horario:", e);
+        return res.status(500).json({ error: "Error al eliminar el horario" });
+
+    }
+
+}
+
 module.exports = {
     getHorarios,
     createHorario,
+    updateHorario,
+    deleteHorario,
 }

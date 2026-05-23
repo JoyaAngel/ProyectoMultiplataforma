@@ -68,7 +68,82 @@ async function createAlumno(req, res) {
     }
 }
 
+
+async function updateAlumno(req, res) {
+    try {
+        const { id } = req.params;
+        const {
+            numero_cuenta,
+            nombre,
+            apellido_paterno,
+            apellido_materno,
+            curp,
+            telefono,
+            sexo,
+            correo_electronico,
+            fecha_nacimiento,
+            id_entidad
+        } = req.body;
+
+        if (
+            !numero_cuenta ||
+            !nombre ||
+            !apellido_paterno ||
+            !curp ||
+            !telefono ||
+            !sexo ||
+            !correo_electronico ||
+            !fecha_nacimiento ||
+            !id_entidad
+        ) {
+            return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        }
+
+        const alumno = await Alumno.findByPk(id);
+        if (!alumno) {
+            return res.status(404).json({ error: 'Alumno no encontrado' });
+        }
+
+        await alumno.update({
+            numero_cuenta,
+            nombre,
+            apellido_paterno,
+            apellido_materno: apellido_materno !== undefined ? apellido_materno : alumno.apellido_materno,
+            curp,
+            telefono,
+            sexo,
+            correo_electronico,
+            fecha_nacimiento,
+            id_entidad
+        });
+
+        return res.status(200).json({ message: 'Alumno actualizado correctamente', data: alumno });
+    } catch (error) {
+        console.error('Error al actualizar el alumno:', error);
+        return res.status(500).json({ error: 'Error al actualizar el alumno' });
+    }
+}
+
+async function deleteAlumno(req, res) {
+    try {
+        const { id } = req.params;
+
+        const alumno = await Alumno.findByPk(id);
+        if (!alumno) {
+            return res.status(404).json({ error: 'Alumno no encontrado' });
+        }
+
+        await alumno.destroy();
+        return res.status(200).json({ message: 'Alumno eliminado correctamente', data: alumno });
+    } catch (error) {
+        console.error('Error al eliminar el alumno:', error);
+        return res.status(500).json({ error: 'Error al eliminar el alumno' });
+    }
+}
+
 module.exports = {
     getAlumnos,
-    createAlumno
+    createAlumno,
+    updateAlumno,
+    deleteAlumno
 };

@@ -1,7 +1,9 @@
 export const FORMS_CONFIG = {
     alumnos: {
         title: "Registrar Alumno",
+        titleEdit: "Editar Alumno",
         endpoint: "/api/alumnos",
+        idField: "numero_cuenta",
         submitLabel: "Guardar Alumno",
         fields: [
             { name: "numero_cuenta", label: "Número de Cuenta", type: "number", required: true },
@@ -36,7 +38,9 @@ export const FORMS_CONFIG = {
     },
     entidades: {
         title: "Registrar Entidad",
+        titleEdit: "Editar Entidad",
         endpoint: "/api/entidades",
+        idField: "id_entidad",
         submitLabel: "Guardar Entidad",
         fields: [
             { name: "nombre_entidad", label: "Nombre", type: "text", required: true },
@@ -45,7 +49,9 @@ export const FORMS_CONFIG = {
     },
     horarios: {
         title: "Registrar Horario",
+        titleEdit: "Editar Horario",
         endpoint: "/api/horarios",
+        idField: "id_horario",
         submitLabel: "Guardar Horario",
         fields: [
             {
@@ -69,7 +75,9 @@ export const FORMS_CONFIG = {
     },
     grupos: {
         title: "Registrar Grupo",
+        titleEdit: "Editar Grupo",
         endpoint: "/api/grupos",
+        idField: "id_grupo",
         submitLabel: "Guardar Grupo",
         fields: [
             { name: "nombre_grupo", label: "Nombre del grupo", type: "text", required: true }
@@ -77,7 +85,9 @@ export const FORMS_CONFIG = {
     },
     profesores: {
         title: "Registrar Profesor",
+        titleEdit: "Editar Profesor",
         endpoint: "/api/profesores",
+        idField: "id_profesor",
         submitLabel: "Guardar Profesor",
         fields: [
             { name: "nombre", label: "Nombre", type: "text", required: true },
