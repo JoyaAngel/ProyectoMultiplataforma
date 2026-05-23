@@ -34,7 +34,7 @@ async function createGrupo(req, res) {
         if(nombre_grupo.length > 4){
 
             return res.status(400).json({
-                error: 'El nombre de grupo excede los carateres limitados (4 caracteres)'
+                error: 'El nombre de grupo excede los caracteres limitados (4 caracteres)'
             })
 
         }
