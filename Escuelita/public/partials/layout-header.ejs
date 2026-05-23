@@ -94,7 +94,7 @@
 
             const fieldsHtml = cfg.fields.map(buildFieldHtml).join("");
             const formHtml = '' +
-                '<form id="dynamicForm">' +
+                '<form id="dynamicForm" onsubmit="onSubmitDynamicForm(event)">' +
                 '<div class="row g-3">' + fieldsHtml + "</div>" +
                 '<div class="mt-3">' +
                 '<button type="submit" class="btn btn-success">' + cfg.submitLabel + "</button>" +
@@ -106,8 +106,6 @@
             $("#formPanel").removeClass("d-none");
 
             await loadRemoteSelects(cfg.fields);
-
-            $("#dynamicForm").on("submit", onSubmitDynamicForm);
         }
 
         function closeForm() {
@@ -119,39 +117,68 @@
 
         async function onSubmitDynamicForm(event) {
             event.preventDefault();
-
-            const formsModule = await import("/assets/js/config/forms.js");
-            const FORMS_CONFIG = formsModule.FORMS_CONFIG;
-
-            const cfg = FORMS_CONFIG[currentModelKey];
-            if (!cfg) return;
-
-            hideMessage();
-
-            const form = event.currentTarget;
-            const formData = new FormData(form);
-            const body = Object.fromEntries(formData.entries());
+            console.log("onSubmitDynamicForm called");
 
             try {
+                const formsModule = await import("/assets/js/config/forms.js");
+                const FORMS_CONFIG = formsModule.FORMS_CONFIG;
+
+                const cfg = FORMS_CONFIG[currentModelKey];
+                if (!cfg) {
+                    console.error("Config not found for:", currentModelKey);
+                    return;
+                }
+
+                hideMessage();
+
+                const form = document.getElementById('dynamicForm') || event.target;
+                console.log("Form element:", form);
+                
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+
+                // Convertir valores vacíos en null para campos select
+                Object.keys(body).forEach(key => {
+                    if (body[key] === '') {
+                        body[key] = null;
+                    }
+                });
+
+                console.log("Sending data:", body);
+
                 const res = await fetch(cfg.endpoint, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(body)
                 });
 
+                console.log("Response status:", res.status, "ok:", res.ok);
+
                 const payload = await res.json();
+                console.log("Payload:", payload);
 
                 if (!res.ok) {
-                    showMessage("error", payload.error || "Error al guardar");
+                    const errorMsg = payload.error || "Error al guardar";
+                    console.error("Error message to show:", errorMsg);
+                    showMessage("error", errorMsg);
                     return;
                 }
 
                 showMessage("success", payload.message || "Guardado correctamente");
                 form.reset();
                 
-                const tableModule = await import("/assets/js/features/tableLoader.js");
-                tableModule.loadTableByKey(currentModelKey);
+                // Recargar la tabla usando DataTables API
+                try {
+                    const tableId = '#' + currentModelKey + 'Table';
+                    const table = $(tableId).DataTable();
+                    if (table && typeof table.ajax.reload === 'function') {
+                        table.ajax.reload();
+                    }
+                } catch (tableError) {
+                    console.warn("No se pudo recargar la tabla:", tableError);
+                }
             } catch (error) {
+                console.error("Error en submit:", error);
                 showMessage("error", "Error de red o servidor");
             }
         }
