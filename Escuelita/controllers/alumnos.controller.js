@@ -1,4 +1,9 @@
 const { Alumno, Entidad_Federativa } = require('../models');
+const { isValidNumeroCuenta} = require('../validators/numeroCuentaValidator');
+const { isValidEmail } = require('../validators/emailValidator');
+const { isCurpFormatValid } = require('../validators/curpFormatValidator');
+const { matchesGivenLength } = require("../validators/anyLengthValidator");
+const { isValidSexo } = require('../validators/sexoValidator');
 
 async function getAlumnos(req, res) {
     try {
@@ -46,6 +51,39 @@ async function createAlumno(req, res) {
         ) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
         }
+
+        //validaciones nuevas.
+        if(!isValidNumeroCuenta(numero_cuenta)){
+            return res.status(400).json({
+                error: 'El número de cuenta no coincide a nueve dígitos.'
+            })
+        }
+
+        if(!isCurpFormatValid(curp)){
+            return res.status(400).json({
+                error: 'La CURP no cumple el formato obligatorio.'
+            })
+        }
+
+        if(!matchesGivenLength(10, telefono)){
+            return res.status(400).json({
+                error: 'El teléfono debe ser a 10 dígitos seguidos y sin espacios.'
+            })
+        }
+
+        if(!isValidSexo(sexo)){
+            return res.status(400).json({
+                error: 'El sexo no debe de ser de más de un caracter, y debe se ser M o F'
+            })
+        }
+
+        if(!isValidEmail(correo_electronico)){
+            return res.status(400).json({
+                error: 'El correo electrónico no cumple la estructura "usuario@dominio.extensión" '
+            })
+        }
+
+        console.log(`Fecha recibida: ${fecha_nacimiento}`);
 
         const nuevoAlumno = await Alumno.create({
             numero_cuenta,

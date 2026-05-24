@@ -1,5 +1,7 @@
 const { Grupo } = require("../models");
 
+const { matchesGivenLength } = require("../validators/anyLengthValidator");
+
 async function getGrupos(req, res) {
 
     try{
@@ -31,20 +33,11 @@ async function createGrupo(req, res) {
         }
 
         //Validación de longitud del nombre de grupo (4 caracteres)
-        if(nombre_grupo.length > 4){
+        if(matchesGivenLength(4, nombre_grupo)){
 
             return res.status(400).json({
-                error: 'El nombre de grupo excede los caracteres limitados (4 caracteres)'
-            })
-
-        }
-
-        //Validación de longitud del nombre de grupo (4 caracteres)
-        if(nombre_grupo.length < 4){
-
-            return res.status(400).json({
-                error: 'El nombre de grupo requiere de 4 caracteres'
-            })
+                error: 'El nombre de grupo debe tener exactamente 4 caracteres'
+            });
 
         }
 
