@@ -37,18 +37,48 @@ app.use(horariosRouter);
 const gruposRouter = require('./routes/grupos.routes.js');
 app.use(gruposRouter);
 
-sequelize
-    .authenticate()
-    .then(() => {
+
+/*
+* sequelize
+        .authenticate()
+        .then(() => {
+
+            return sequelize.sync();
+        })
+        .then(() => {
+            console.log('Modelos sincronizados con la base de datos.');
+            app.listen(port, () => {
+                console.log(`Servidor escuchando en http://localhost:${port}`);
+            });
+        })
+        .catch((error) => {
+            console.error('Error al conectar a la base de datos:', error);
+        });
+*/
+//Función wrapper para inicializar sequelize.
+async function iniciarServer(){
+
+    try{
+
+        await sequelize.authenticate();
         console.log('Conexión a la base de datos establecida exitosamente.');
-        return sequelize.sync();
-    })
-    .then(() => {
+
+        await sequelize.sync();
         console.log('Modelos sincronizados con la base de datos.');
+
         app.listen(port, () => {
             console.log(`Servidor escuchando en http://localhost:${port}`);
         });
-    })
-    .catch((error) => {
+
+    } catch(e){
+
         console.error('Error al conectar a la base de datos:', error);
-    });
+
+    }
+
+}
+
+//Iniciar app
+if (require.main === module) {
+    iniciarServer();
+}

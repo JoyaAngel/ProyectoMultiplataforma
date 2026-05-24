@@ -1,4 +1,10 @@
 const { Profesor } = require('../models');
+const { isCurpFormatValid } = require('../validators/curpFormatValidator');
+const { isRFCFormatValid } = require('../validators/rfcValidator');
+const { matchesGivenLength } = require('../validators/anyLengthValidator');
+const { isValidSexo } = require("../validators/sexoValidator");
+const { isValidEmail } = require("../validators/emailValidator");
+const { isIsoDateCompliant } = require("../validators/isoCompliantDateValidator");
 
 async function getProfesores(req, res) {
     try {
@@ -37,6 +43,44 @@ async function createProfesor(req, res) {
             !sueldo
         ) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        }
+
+        //Nuevas validaciones
+        if(!isCurpFormatValid(curp)) {
+            return res.status(400).send({
+                error: 'La CURP no cumple el formato obligatorio.'
+            })
+        }
+
+        if(!isRFCFormatValid(rfc)){
+            return res.status(400).send({
+                error: 'El RFC no cumple con el formato obligatorio.'
+            })
+        }
+
+        if(!matchesGivenLength(10, telefono)){
+            return res.status(400).json({
+                error: 'El teléfono debe ser a 10 dígitos seguidos y sin espacios.'
+            })
+        }
+
+        if(!isValidSexo(sexo)){
+            return res.status(400).json({
+                error: 'El sexo no debe de ser de más de un caracter, y debe se ser M o F'
+            })
+        }
+
+        if(!isValidEmail(correo_electronico)){
+            return res.status(400).json({
+                error: 'El correo electrónico no cumple la estructura "usuario@dominio.extensión" '
+            })
+        }
+
+        console.log(`Fecha recibida: ${fecha_nacimiento}`);
+        if(!isIsoDateCompliant(fecha_nacimiento)){
+            return res.status(400).json({
+                error: 'Formato de fecha no reconocido. Debe de ser AAAA-MM-DD.'
+            })
         }
 
         const nuevoProfesor = await Profesor.create({
