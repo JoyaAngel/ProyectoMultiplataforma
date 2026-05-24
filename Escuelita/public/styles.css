@@ -141,6 +141,150 @@ table.dataTable > thead .sorting_desc:after {
     opacity: 0.25;
 }
 
+/* Formulario dinámico */
+#formPanel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    background: var(--ui-surface);
+    border-left: 1px solid var(--ui-line);
+    box-shadow: -10px 0 30px rgba(17, 24, 39, 0.1);
+    z-index: 1050;
+    overflow-y: auto;
+    padding: 2rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+#formPanel.d-none {
+    display: none !important;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+#formTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--ui-text);
+}
+
+.form-label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ui-text);
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid var(--ui-line);
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    background: var(--ui-surface);
+    color: var(--ui-text);
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: rgba(17, 24, 39, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(17, 24, 39, 0.06);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: var(--ui-muted);
+}
+
+#formContainer .row {
+    margin-bottom: 0;
+}
+
+#formContainer .col-md-6 {
+    margin-bottom: 1.25rem;
+    width: 100%;
+}
+
+#formMessage {
+    margin-bottom: 1.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    border: 1px solid transparent;
+}
+
+#formMessage.alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: rgb(21, 128, 61);
+}
+
+#formMessage.alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: rgb(153, 27, 27);
+}
+
+#formPanel .btn {
+    padding: 0.65rem 1.5rem;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#formPanel .btn-success {
+    background: #22c55e;
+    color: white;
+}
+
+#formPanel .btn-success:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+#formPanel .btn-secondary {
+    background: var(--ui-line);
+    color: var(--ui-text);
+    margin-left: 0.5rem;
+}
+
+#formPanel .btn-secondary:hover {
+    background: var(--ui-line-strong);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ui-line);
+}
+
+@media (max-width: 768px) {
+    #formPanel {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+
+    #formTitle {
+        font-size: 1.25rem;
+    }
+}
+
 @media (max-width: 576px) {
     .dataTables_wrapper .dataTables_length,
     .dataTables_wrapper .dataTables_filter {

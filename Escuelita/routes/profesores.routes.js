@@ -3,10 +3,14 @@ const router = express.Router();
 
 const {
     getProfesores,
-    createProfesor
+    createProfesor,
+    updateProfesor,
+    deleteProfesor
 } = require('../controllers/profesores.controller');
 
 router.get('/api/profesores', getProfesores);
 router.post('/api/profesores', createProfesor);
+router.put('/api/profesores/:id', updateProfesor);
+router.delete('/api/profesores/:id', deleteProfesor);
 
 module.exports = router;
