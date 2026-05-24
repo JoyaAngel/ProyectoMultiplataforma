@@ -4,6 +4,7 @@ const { isValidEmail } = require('../validators/emailValidator');
 const { isCurpFormatValid } = require('../validators/curpFormatValidator');
 const { matchesGivenLength } = require("../validators/anyLengthValidator");
 const { isValidSexo } = require('../validators/sexoValidator');
+const { isIsoDateCompliant } = require('../validators/isoCompliantDateValidator');
 
 async function getAlumnos(req, res) {
     try {
@@ -84,6 +85,11 @@ async function createAlumno(req, res) {
         }
 
         console.log(`Fecha recibida: ${fecha_nacimiento}`);
+        if(!isIsoDateCompliant(fecha_nacimiento)){
+            return res.status(400).json({
+                error: 'Formato de fecha no reconocido. Debe de ser AAAA-MM-DD.'
+            })
+        }
 
         const nuevoAlumno = await Alumno.create({
             numero_cuenta,

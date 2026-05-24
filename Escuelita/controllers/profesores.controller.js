@@ -2,8 +2,9 @@ const { Profesor } = require('../models');
 const { isCurpFormatValid } = require('../validators/curpFormatValidator');
 const { isRFCFormatValid } = require('../validators/rfcValidator');
 const { matchesGivenLength } = require('../validators/anyLengthValidator');
-const {isValidSexo} = require("../validators/sexoValidator");
-const {isValidEmail} = require("../validators/emailValidator");
+const { isValidSexo } = require("../validators/sexoValidator");
+const { isValidEmail } = require("../validators/emailValidator");
+const { isIsoDateCompliant } = require("../validators/isoCompliantDateValidator");
 
 async function getProfesores(req, res) {
     try {
@@ -76,6 +77,11 @@ async function createProfesor(req, res) {
         }
 
         console.log(`Fecha recibida: ${fecha_nacimiento}`);
+        if(!isIsoDateCompliant(fecha_nacimiento)){
+            return res.status(400).json({
+                error: 'Formato de fecha no reconocido. Debe de ser AAAA-MM-DD.'
+            })
+        }
 
         const nuevoProfesor = await Profesor.create({
             nombre,
