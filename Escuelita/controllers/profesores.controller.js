@@ -1,4 +1,6 @@
 const { Profesor } = require('../models');
+const {performProfesorValidations} = require("../validators/aggregated-validators/aggregatedProfesorValidator");
+
 
 async function getProfesores(req, res) {
     try {
@@ -37,6 +39,14 @@ async function createProfesor(req, res) {
             !sueldo
         ) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        }
+
+        const validationError = performProfesorValidations(req.body);
+
+        if (validationError) {
+            return res.status(400).json({
+                error: validationError
+            });
         }
 
         const nuevoProfesor = await Profesor.create({
@@ -89,6 +99,14 @@ async function updateProfesor(req, res) {
             sueldo === undefined || sueldo === null || sueldo === ''
         ) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        }
+
+        const validationError = performProfesorValidations(req.body);
+
+        if (validationError) {
+            return res.status(400).json({
+                error: validationError
+            });
         }
 
         const profesor = await Profesor.findByPk(id);

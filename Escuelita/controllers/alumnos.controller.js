@@ -1,5 +1,5 @@
 const { Alumno, Entidad_Federativa } = require('../models');
-
+const { performAlumnoValidations } = require('../validators/aggregated-validators/aggregatedAlumnoValidator');
 async function getAlumnos(req, res) {
     try {
         const alumnos = await Alumno.findAll({
@@ -47,6 +47,15 @@ async function createAlumno(req, res) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
         }
 
+        //uso del validador agregado de alumnos
+        const validationError = performAlumnoValidations(req.body);
+
+        //si hay error alguna validación falla, error dice cuál fue
+        if(validationError) {
+            return res.status(400).json({ error: validationError });
+        }
+
+
         const nuevoAlumno = await Alumno.create({
             numero_cuenta,
             nombre,
@@ -67,7 +76,6 @@ async function createAlumno(req, res) {
         return res.status(500).json({ error: 'Error al crear el alumno' });
     }
 }
-
 
 async function updateAlumno(req, res) {
     try {
@@ -97,6 +105,14 @@ async function updateAlumno(req, res) {
             !id_entidad
         ) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        }
+
+        //uso del validador agregado de alumnos
+        const validationError = performAlumnoValidations(req.body);
+
+        //si hay error alguna validación falla, error dice cuál fue
+        if(validationError) {
+            return res.status(400).json({ error: validationError });
         }
 
         const alumno = await Alumno.findByPk(id);
