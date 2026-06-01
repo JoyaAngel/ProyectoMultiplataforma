@@ -1,11 +1,5 @@
 const { Alumno, Entidad_Federativa } = require('../models');
-const { isValidNumeroCuenta} = require('../validators/numeroCuentaValidator');
-const { isValidEmail } = require('../validators/emailValidator');
-const { isCurpFormatValid } = require('../validators/curpFormatValidator');
-const { matchesGivenLength } = require("../validators/anyLengthValidator");
-const { isValidSexo } = require('../validators/sexoValidator');
-const { isIsoDateCompliant } = require('../validators/isoCompliantDateValidator');
-
+const { performAlumnoValidations } = require('../validators/aggregated-validators/aggregatedAlumnoValidator');
 async function getAlumnos(req, res) {
     try {
         const alumnos = await Alumno.findAll({
@@ -53,43 +47,14 @@ async function createAlumno(req, res) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
         }
 
-        //validaciones nuevas.
-        if(!isValidNumeroCuenta(numero_cuenta)){
-            return res.status(400).json({
-                error: 'El número de cuenta no coincide a nueve dígitos.'
-            })
+        //uso del validador agregado de alumnos
+        const validationError = performAlumnoValidations(req.body);
+
+        //si hay error alguna validación falla, error dice cuál fue
+        if(validationError) {
+            return res.status(400).json({ error: validationError });
         }
 
-        if(!isCurpFormatValid(curp)){
-            return res.status(400).json({
-                error: 'La CURP no cumple el formato obligatorio.'
-            })
-        }
-
-        if(!matchesGivenLength(10, telefono)){
-            return res.status(400).json({
-                error: 'El teléfono debe ser a 10 dígitos seguidos y sin espacios.'
-            })
-        }
-
-        if(!isValidSexo(sexo)){
-            return res.status(400).json({
-                error: 'El sexo no debe de ser de más de un caracter, y debe se ser M o F'
-            })
-        }
-
-        if(!isValidEmail(correo_electronico)){
-            return res.status(400).json({
-                error: 'El correo electrónico no cumple la estructura "usuario@dominio.extensión" '
-            })
-        }
-
-        console.log(`Fecha recibida: ${fecha_nacimiento}`);
-        if(!isIsoDateCompliant(fecha_nacimiento)){
-            return res.status(400).json({
-                error: 'Formato de fecha no reconocido. Debe de ser AAAA-MM-DD.'
-            })
-        }
 
         const nuevoAlumno = await Alumno.create({
             numero_cuenta,
@@ -111,7 +76,6 @@ async function createAlumno(req, res) {
         return res.status(500).json({ error: 'Error al crear el alumno' });
     }
 }
-
 
 async function updateAlumno(req, res) {
     try {
@@ -141,6 +105,14 @@ async function updateAlumno(req, res) {
             !id_entidad
         ) {
             return res.status(400).json({ error: 'Faltan campos obligatorios' });
+        }
+
+        //uso del validador agregado de alumnos
+        const validationError = performAlumnoValidations(req.body);
+
+        //si hay error alguna validación falla, error dice cuál fue
+        if(validationError) {
+            return res.status(400).json({ error: validationError });
         }
 
         const alumno = await Alumno.findByPk(id);
