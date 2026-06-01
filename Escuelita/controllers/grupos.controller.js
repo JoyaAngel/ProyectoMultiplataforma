@@ -1,6 +1,6 @@
 const { Grupo } = require("../models");
 
-const { matchesGivenLength } = require("../validators/anyLengthValidator");
+const { matchesGivenLength } = require("../validators/individual-validators/anyLengthValidator");
 
 async function getGrupos(req, res) {
 
