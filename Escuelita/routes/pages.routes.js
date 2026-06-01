@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const {
+    renderIndex,
     renderDashboard,
     renderAlumnos,
     renderProfesores,
@@ -11,7 +12,7 @@ const {
 } = require('../controllers/pages.controller');
 
 //principal
-router.get('/', renderDashboard);
+router.get('/', renderIndex);
 
 router.get('/dashboard', renderDashboard);
 

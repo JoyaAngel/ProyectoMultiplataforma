@@ -1,3 +1,7 @@
+async function renderIndex(req, res) {
+    return res.render('index');
+}
+
 async function renderDashboard(req, res) {
     return res.render('dashboard', { currentPage: 'dashboard' });
 }
@@ -23,6 +27,7 @@ async function renderGrupos(req, res){
 }
 
 module.exports = {
+    renderIndex,
     renderDashboard,
     renderAlumnos,
     renderProfesores,

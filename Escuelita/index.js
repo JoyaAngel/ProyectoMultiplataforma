@@ -1,13 +1,19 @@
 const express = require('express');
 const path = require('path');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 require('dotenv').config();
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
 const { sequelize } = require('./bd');
+const { Alumno, Entidad_Federativa } = require('./models');
 
 app.use(express.json());
+
+// Servir documentación de Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/assets/views', (req, res) => res.sendStatus(404));
 app.use('/assets/partials', (req, res) => res.sendStatus(404));

@@ -1,0 +1,104 @@
+/* Variables de Color */
+:root {
+    --primary-teal: #006A61;
+    --light-teal: #86F2E4;
+    --navy-blue: #131B2E;
+    --text-muted: #45464D;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #191C1E;
+}
+
+/* Colores de Botones y Badges */
+.btn-teal {
+    background-color: var(--primary-teal);
+    color: white;
+    border: none;
+}
+
+.btn-teal:hover {
+    background-color: #00544d;
+    color: white;
+}
+
+.bg-soft-teal {
+    background-color: var(--light-teal);
+}
+
+.text-teal {
+    color: var(--primary-teal);
+}
+
+.bg-navy {
+    background-color: var(--navy-blue);
+}
+
+.tracking-widest {
+    letter-spacing: 1.2px;
+    font-size: 11px;
+}
+
+/* Efecto de Fondo Hero */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.blob-bg {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: var(--light-teal);
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    top: -50px;
+    right: 100px;
+    z-index: -1;
+}
+
+.image-wrapper img {
+    border: 1px solid #C6C6CD;
+}
+
+/* Estilos de Tarjetas */
+.border-teal-left {
+    border-left: 4px solid var(--primary-teal) !important;
+}
+
+.btn-teal-dark {
+    background-color: var(--primary-teal);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.stat-badge {
+    min-width: 100px;
+    border: 1px solid #e2e8f0;
+}
+
+.x-small {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: #64748b;
+}
+
+/* Footer & Extras */
+.text-light-secondary {
+    color: #7C839B;
+}
+
+.avatar-group img {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.avatar-group img:hover {
+    transform: translateY(-5px);
+    z-index: 10;
+}

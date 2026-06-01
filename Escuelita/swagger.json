@@ -1,0 +1,629 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Academia OS API - Escuelita",
+    "description": "Especificación y documentación interactiva de las APIs del Sistema de Gestión Escolar (Academia OS). Permite administrar Alumnos, Profesores, Grupos, Horarios y Entidades Federativas.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de desarrollo local"
+    }
+  ],
+  "paths": {
+    "/api/alumnos": {
+      "get": {
+        "summary": "Obtener todos los alumnos",
+        "description": "Devuelve la lista completa de alumnos registrados con sus respectivas entidades federativas asociadas.",
+        "tags": ["Alumnos"],
+        "responses": {
+          "200": {
+            "description": "Lista de alumnos obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AlumnoResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo alumno",
+        "tags": ["Alumnos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlumnoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Alumno creado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Alumno creado correctamente" },
+                    "data": { "$ref": "#/components/schemas/AlumnoResponse" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Faltan campos obligatorios o datos inválidos"
+          },
+          "500": {
+            "description": "Error al crear el alumno"
+          }
+        }
+      }
+    },
+    "/api/alumnos/{id}": {
+      "put": {
+        "summary": "Actualizar un alumno existente",
+        "tags": ["Alumnos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Número de cuenta del alumno",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlumnoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Alumno actualizado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Alumno actualizado correctamente" },
+                    "data": { "$ref": "#/components/schemas/AlumnoResponse" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Faltan campos obligatorios" },
+          "404": { "description": "Alumno no encontrado" },
+          "500": { "description": "Error al actualizar el alumno" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un alumno",
+        "tags": ["Alumnos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Número de cuenta del alumno",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alumno eliminado correctamente"
+          },
+          "404": { "description": "Alumno no encontrado" },
+          "500": { "description": "Error al eliminar el alumno" }
+        }
+      }
+    },
+    "/api/profesores": {
+      "get": {
+        "summary": "Obtener todos los profesores",
+        "tags": ["Profesores"],
+        "responses": {
+          "200": {
+            "description": "Lista de profesores obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Profesor"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo profesor",
+        "tags": ["Profesores"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfesorInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Profesor creado correctamente"
+          }
+        }
+      }
+    },
+    "/api/profesores/{id}": {
+      "put": {
+        "summary": "Actualizar un profesor existente",
+        "tags": ["Profesores"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfesorInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Profesor actualizado correctamente" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un profesor",
+        "tags": ["Profesores"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Profesor eliminado correctamente" }
+        }
+      }
+    },
+    "/api/grupos": {
+      "get": {
+        "summary": "Obtener todos los grupos",
+        "tags": ["Grupos"],
+        "responses": {
+          "200": {
+            "description": "Lista de grupos obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Grupo"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo grupo",
+        "tags": ["Grupos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre_grupo"],
+                "properties": {
+                  "nombre_grupo": { "type": "string", "example": "401A" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Grupo creado correctamente" }
+        }
+      }
+    },
+    "/api/grupos/{id}": {
+      "put": {
+        "summary": "Actualizar un grupo",
+        "tags": ["Grupos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre_grupo"],
+                "properties": {
+                  "nombre_grupo": { "type": "string", "example": "401B" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Grupo actualizado correctamente" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un grupo",
+        "tags": ["Grupos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Grupo eliminado correctamente" }
+        }
+      }
+    },
+    "/api/horarios": {
+      "get": {
+        "summary": "Obtener todos los horarios",
+        "tags": ["Horarios"],
+        "responses": {
+          "200": {
+            "description": "Lista de horarios obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Horario"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo horario",
+        "tags": ["Horarios"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HorarioInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Horario creado correctamente" }
+        }
+      }
+    },
+    "/api/horarios/{id}": {
+      "put": {
+        "summary": "Actualizar un horario",
+        "tags": ["Horarios"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HorarioInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Horario actualizado correctamente" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un horario",
+        "tags": ["Horarios"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Horario eliminado correctamente" }
+        }
+      }
+    },
+    "/api/entidades": {
+      "get": {
+        "summary": "Obtener todas las entidades federativas",
+        "tags": ["Entidades Federativas"],
+        "responses": {
+          "200": {
+            "description": "Lista de entidades obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/EntidadFederativa"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva entidad federativa",
+        "tags": ["Entidades Federativas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntidadFederativaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Entidad federativa creada correctamente" }
+        }
+      }
+    },
+    "/api/entidades/{id}": {
+      "put": {
+        "summary": "Actualizar una entidad federativa",
+        "tags": ["Entidades Federativas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntidadFederativaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Entidad federativa actualizada correctamente" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una entidad federativa",
+        "tags": ["Entidades Federativas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Entidad federativa eliminada correctamente" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlumnoInput": {
+        "type": "object",
+        "required": [
+          "numero_cuenta",
+          "nombre",
+          "apellido_paterno",
+          "curp",
+          "telefono",
+          "sexo",
+          "correo_electronico",
+          "fecha_nacimiento",
+          "id_entidad"
+        ],
+        "properties": {
+          "numero_cuenta": { "type": "integer", "example": 20231015 },
+          "nombre": { "type": "string", "example": "Carlos" },
+          "apellido_paterno": { "type": "string", "example": "Sánchez" },
+          "apellido_materno": { "type": "string", "example": "Gómez" },
+          "curp": { "type": "string", "example": "SAGC020512HDFRND09" },
+          "telefono": { "type": "string", "example": "5512345678" },
+          "sexo": { "type": "string", "maxLength": 1, "enum": ["M", "F"], "example": "M" },
+          "correo_electronico": { "type": "string", "format": "email", "example": "carlos.sanchez@ejemplo.com" },
+          "fecha_nacimiento": { "type": "string", "format": "date", "example": "2002-05-12" },
+          "id_entidad": { "type": "integer", "example": 9 }
+        }
+      },
+      "AlumnoResponse": {
+        "type": "object",
+        "properties": {
+          "numero_cuenta": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "apellido_paterno": { "type": "string" },
+          "apellido_materno": { "type": "string" },
+          "curp": { "type": "string" },
+          "telefono": { "type": "string" },
+          "sexo": { "type": "string" },
+          "correo_electronico": { "type": "string" },
+          "fecha_nacimiento": { "type": "string" },
+          "foto_perfil": { "type": "string" },
+          "id_entidad": { "type": "integer" },
+          "entidad_federativa": {
+            "$ref": "#/components/schemas/EntidadFederativa"
+          }
+        }
+      },
+      "ProfesorInput": {
+        "type": "object",
+        "required": [
+          "nombre",
+          "apellido_paterno",
+          "curp",
+          "rfc",
+          "telefono",
+          "sexo",
+          "correo_electronico",
+          "fecha_nacimiento",
+          "sueldo"
+        ],
+        "properties": {
+          "nombre": { "type": "string", "example": "Laura" },
+          "apellido_paterno": { "type": "string", "example": "Martínez" },
+          "apellido_materno": { "type": "string", "example": "López" },
+          "curp": { "type": "string", "example": "MALL850915MDFRNS04" },
+          "rfc": { "type": "string", "example": "MALL850915XX9" },
+          "telefono": { "type": "string", "example": "5598765432" },
+          "sexo": { "type": "string", "maxLength": 1, "enum": ["M", "F"], "example": "F" },
+          "correo_electronico": { "type": "string", "format": "email", "example": "laura.docente@ejemplo.com" },
+          "fecha_nacimiento": { "type": "string", "format": "date", "example": "1885-09-15" },
+          "sueldo": { "type": "number", "format": "float", "example": 28500.00 }
+        }
+      },
+      "Profesor": {
+        "type": "object",
+        "properties": {
+          "id_profesor": { "type": "integer" },
+          "nombre": { "type": "string" },
+          "apellido_paterno": { "type": "string" },
+          "apellido_materno": { "type": "string" },
+          "curp": { "type": "string" },
+          "rfc": { "type": "string" },
+          "telefono": { "type": "string" },
+          "sexo": { "type": "string" },
+          "correo_electronico": { "type": "string" },
+          "fecha_nacimiento": { "type": "string" },
+          "sueldo": { "type": "number" },
+          "all_data_professor": { "type": "object" }
+        }
+      },
+      "Grupo": {
+        "type": "object",
+        "properties": {
+          "id_grupo": { "type": "integer", "example": 1 },
+          "nombre_grupo": { "type": "string", "example": "401A" }
+        }
+      },
+      "HorarioInput": {
+        "type": "object",
+        "required": ["dia", "hora_inicio", "hora_fin"],
+        "properties": {
+          "dia": { "type": "string", "enum": ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"], "example": "Lunes" },
+          "hora_inicio": { "type": "string", "example": "08:00:00" },
+          "hora_fin": { "type": "string", "example": "10:00:00" }
+        }
+      },
+      "Horario": {
+        "type": "object",
+        "properties": {
+          "id_horario": { "type": "integer" },
+          "dia": { "type": "string" },
+          "hora_inicio": { "type": "string" },
+          "hora_fin": { "type": "string" }
+        }
+      },
+      "EntidadFederativaInput": {
+        "type": "object",
+        "required": ["nombre_entidad", "abreviatura"],
+        "properties": {
+          "nombre_entidad": { "type": "string", "example": "Ciudad de México" },
+          "abreviatura": { "type": "string", "example": "CDMX" }
+        }
+      },
+      "EntidadFederativa": {
+        "type": "object",
+        "properties": {
+          "id_entidad": { "type": "integer" },
+          "nombre_entidad": { "type": "string" },
+          "abreviatura": { "type": "string" }
+        }
+      }
+    }
+  }
+}

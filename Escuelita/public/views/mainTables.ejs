@@ -1,0 +1,118 @@
+<% if (tableType === 'estudiantes') { %>
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold">Lista de Estudiantes</h5>
+        <div class="btn-group">
+            <button class="btn btn-outline-secondary btn-sm">Filtrar</button>
+            <button class="btn btn-outline-secondary btn-sm">Exportar</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="alumnosTable">
+            <thead class="bg-light">
+                <tr>
+                    <th class="ps-4">NO. CUENTA</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO PATERNO</th>
+                    <th>APELLIDO MATERNO</th>
+                    <th>CURP</th>
+                    <th>TELÉFONO</th>
+                    <th>SEXO</th>
+                    <th>CORREO ELECTRÓNICO</th>
+                    <th>FECHA NACIMIENTO</th>
+                    <th>ID ENTIDAD</th>
+                    <th class="text-end pe-4">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof alumnos !== 'undefined' && alumnos.length > 0) { %>
+                    <% alumnos.forEach(alumno => { %>
+                        <tr>
+                            <td class="ps-4"><code class="text-muted"><%= alumno.numero_cuenta %></code></td>
+                            <td><%= alumno.nombre %></td>
+                            <td><%= alumno.apellido_paterno %></td>
+                            <td><%= alumno.apellido_materno %></td>
+                            <td><%= alumno.curp %></td>
+                            <td><%= alumno.telefono %></td>
+                            <td><%= alumno.sexo %></td>
+                            <td><%= alumno.correo_electronico %></td>
+                            <td><%= alumno.fecha_nacimiento %></td>
+                            <td><%= alumno.entidad_federativa ? alumno.entidad_federativa.nombre_entidad : alumno.id_entidad %></td>
+                            <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="11" class="text-center py-4">No hay estudiantes registrados.</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<% } else if (tableType === 'maestros') { %>
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold">Lista de Profesores</h5>
+        <div class="btn-group">
+            <button class="btn btn-outline-secondary btn-sm">Filtrar</button>
+            <button class="btn btn-outline-secondary btn-sm">Exportar</button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="profesoresTable">
+            <thead class="bg-light">
+                <tr>
+                    <th class="ps-4">ID PROFESOR</th>
+                    <th>NOMBRE</th>
+                    <th>APELLIDO PATERNO</th>
+                    <th>APELLIDO MATERNO</th>
+                    <th>CURP</th>
+                    <th>RFC</th>
+                    <th>TELÉFONO</th>
+                    <th>SEXO</th>
+                    <th>CORREO ELECTRÓNICO</th>
+                    <th>FECHA NACIMIENTO</th>
+                    <th>SUELDO</th>
+                    <th class="text-end pe-4">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (typeof profesores !== 'undefined' && profesores.length > 0) { %>
+                    <% profesores.forEach(profesor => { %>
+                        <tr>
+                            <td class="ps-4"><code class="text-muted"><%= profesor.id_profesor %></code></td>
+                            <td><%= profesor.nombre %></td>
+                            <td><%= profesor.apellido_paterno %></td>
+                            <td><%= profesor.apellido_materno %></td>
+                            <td><%= profesor.curp %></td>
+                            <td><%= profesor.rfc %></td>
+                            <td><%= profesor.telefono %></td>
+                            <td><%= profesor.sexo %></td>
+                            <td><%= profesor.correo_electronico %></td>
+                            <td><%= profesor.fecha_nacimiento %></td>
+                            <td><%= profesor.sueldo %></td>
+                            <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <tr>
+                        <td class="ps-4"><code class="text-muted">1</code></td>
+                        <td>Javier</td>
+                        <td>Pineda</td>
+                        <td>López</td>
+                        <td>PILJ801201HDFRXX02</td>
+                        <td>PILJ801201XX1</td>
+                        <td>55-9876-5432</td>
+                        <td>M</td>
+                        <td>javier.pineda@academia.edu</td>
+                        <td>1980-12-01</td>
+                        <td>$25,000.00</td>
+                        <td class="text-end pe-4"><button class="btn btn-light btn-sm">•••</button></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<% } %>
