@@ -4,7 +4,6 @@ const { matchesGivenLength } = require('../individual-validators/anyLengthValida
 const { isValidSexo } = require('../individual-validators/sexoValidator');
 const { isValidEmail } = require('../individual-validators/emailValidator');
 const { isIsoDateCompliant } = require('../individual-validators/isoCompliantDateValidator');
-const { Alumno} = require("../../models");
 
 function performAlumnoValidations(alumno){
 
