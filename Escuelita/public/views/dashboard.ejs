@@ -1,59 +1,328 @@
 <%- include('../partials/layout-header', { title: 'Dashboard', currentPage: 'dashboard' }) %>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
                 <h1 class="h4 fw-bold">Panel de Control <span class="fw-normal text-muted h6 ms-2">Año Académico 2026-2027</span></h1>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="search-box position-relative">
-                        <%# Barra de búsqueda %>
-                    </div>
-                    <%# Perfil %>
-                </div>
             </div>
 
+            <%# ── Stat Cards ── %>
             <div class="row g-4 mb-4">
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm p-3 rounded-4">
-                        <small class="text-uppercase text-muted fw-bold x-small">Total Alumnos</small>
-                        <div class="d-flex justify-content-between align-items-end mt-2">
-                            <h2 class="mb-0 fw-bold" id="totalAlumnos">—</h2>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 h-100 stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <small class="text-uppercase text-muted fw-bold stat-label">Total Alumnos</small>
+                                <h2 class="mb-0 fw-bold mt-2 stat-value" id="totalAlumnos">
+                                    <span class="stat-spinner spinner-border spinner-border-sm text-muted" role="status"></span>
+                                </h2>
+                            </div>
+                            <div class="stat-icon-wrap bg-primary bg-opacity-10 rounded-3 p-2">
+                                <span class="stat-icon">👥</span>
+                            </div>
+                        </div>
+                        <a href="/alumnos" class="stretched-link mt-3 d-block text-muted small stat-link">Ver alumnos →</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 h-100 stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <small class="text-uppercase text-muted fw-bold stat-label">Total Profesores</small>
+                                <h2 class="mb-0 fw-bold mt-2 stat-value" id="totalProfesores">
+                                    <span class="stat-spinner spinner-border spinner-border-sm text-muted" role="status"></span>
+                                </h2>
+                            </div>
+                            <div class="stat-icon-wrap bg-success bg-opacity-10 rounded-3 p-2">
+                                <span class="stat-icon">👨‍🏫</span>
+                            </div>
+                        </div>
+                        <a href="/profesores" class="stretched-link mt-3 d-block text-muted small stat-link">Ver profesores →</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 h-100 stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <small class="text-uppercase text-muted fw-bold stat-label">Total Grupos</small>
+                                <h2 class="mb-0 fw-bold mt-2 stat-value" id="totalGrupos">
+                                    <span class="stat-spinner spinner-border spinner-border-sm text-muted" role="status"></span>
+                                </h2>
+                            </div>
+                            <div class="stat-icon-wrap bg-warning bg-opacity-10 rounded-3 p-2">
+                                <span class="stat-icon">🗂️</span>
+                            </div>
+                        </div>
+                        <a href="/grupos" class="stretched-link mt-3 d-block text-muted small stat-link">Ver grupos →</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 h-100 stat-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <small class="text-uppercase text-muted fw-bold stat-label">Total Horarios</small>
+                                <h2 class="mb-0 fw-bold mt-2 stat-value" id="totalHorarios">
+                                    <span class="stat-spinner spinner-border spinner-border-sm text-muted" role="status"></span>
+                                </h2>
+                            </div>
+                            <div class="stat-icon-wrap bg-danger bg-opacity-10 rounded-3 p-2">
+                                <span class="stat-icon">📅</span>
+                            </div>
+                        </div>
+                        <a href="/horarios" class="stretched-link mt-3 d-block text-muted small stat-link">Ver horarios →</a>
+                    </div>
+                </div>
+            </div>
+
+            <%# ── Quick Actions + Recent Students ── %>
+            <div class="row g-4 mb-4">
+
+                <%# Quick Actions %>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-1">Acciones Rápidas</h5>
+                            <p class="text-muted small mb-4">Crea nuevos registros directamente desde aquí.</p>
+                            <div class="d-grid gap-2">
+                                <button onclick="openForm('alumnos')" class="btn btn-outline-dark text-start d-flex align-items-center gap-2 quick-action-btn">
+                                    <span>👥</span> Nuevo Alumno
+                                </button>
+                                <button onclick="openForm('profesores')" class="btn btn-outline-dark text-start d-flex align-items-center gap-2 quick-action-btn">
+                                    <span>👨‍🏫</span> Nuevo Profesor
+                                </button>
+                                <button onclick="openForm('grupos')" class="btn btn-outline-dark text-start d-flex align-items-center gap-2 quick-action-btn">
+                                    <span>🗂️</span> Nuevo Grupo
+                                </button>
+                                <button onclick="openForm('horarios')" class="btn btn-outline-dark text-start d-flex align-items-center gap-2 quick-action-btn">
+                                    <span>📅</span> Nuevo Horario
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm p-3 rounded-4">
-                        <small class="text-uppercase text-muted fw-bold x-small">Profesores</small>
-                        <div class="d-flex justify-content-between align-items-end mt-2">
-                            <h2 class="mb-0 fw-bold" id="totalProfesores">—</h2>
+
+                <%# Recent Students %>
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <h5 class="fw-bold mb-1">Alumnos Recientes</h5>
+                                    <p class="text-muted small mb-0">Últimos 5 alumnos registrados en el sistema.</p>
+                                </div>
+                                <a href="/alumnos" class="btn btn-sm btn-outline-secondary rounded-pill px-3">Ver todos</a>
+                            </div>
+                            <div id="recentAlumnosList">
+                                <div class="d-flex justify-content-center py-4">
+                                    <div class="spinner-border spinner-border-sm text-muted" role="status"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <%# ── System Overview ── %>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-1">Resumen del Sistema</h5>
+                    <p class="text-muted small mb-4">Vista general de la distribución de registros.</p>
+                    <div class="row g-3" id="overviewStats">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="overview-item rounded-3 p-3 text-center">
+                                <div class="overview-icon mb-2">👥</div>
+                                <div class="fw-bold overview-count" id="overviewAlumnos">—</div>
+                                <div class="text-muted small">Alumnos</div>
+                                <div class="overview-bar mt-2">
+                                    <div class="overview-bar-fill bg-primary" id="barAlumnos" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="overview-item rounded-3 p-3 text-center">
+                                <div class="overview-icon mb-2">👨‍🏫</div>
+                                <div class="fw-bold overview-count" id="overviewProfesores">—</div>
+                                <div class="text-muted small">Profesores</div>
+                                <div class="overview-bar mt-2">
+                                    <div class="overview-bar-fill bg-success" id="barProfesores" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="overview-item rounded-3 p-3 text-center">
+                                <div class="overview-icon mb-2">🗂️</div>
+                                <div class="fw-bold overview-count" id="overviewGrupos">—</div>
+                                <div class="text-muted small">Grupos</div>
+                                <div class="overview-bar mt-2">
+                                    <div class="overview-bar-fill bg-warning" id="barGrupos" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="overview-item rounded-3 p-3 text-center">
+                                <div class="overview-icon mb-2">📅</div>
+                                <div class="fw-bold overview-count" id="overviewHorarios">—</div>
+                                <div class="text-muted small">Horarios</div>
+                                <div class="overview-bar mt-2">
+                                    <div class="overview-bar-fill bg-danger" id="barHorarios" style="width: 0%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
-                <%# No sé que poner en el dashboard todavía %>
-            </div>
+            <style>
+                .stat-label { font-size: 0.68rem; letter-spacing: 0.06em; }
+                .stat-value { font-size: 2rem; min-height: 2.5rem; }
+                .stat-icon  { font-size: 1.4rem; line-height: 1; }
+                .stat-icon-wrap { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+                .stat-link  { text-decoration: none; font-size: 0.82rem; }
+                .stat-link:hover { color: var(--ui-text) !important; }
+                .stat-card  { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+                .stat-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(17,24,39,0.10) !important; }
+
+                .quick-action-btn { border-color: var(--ui-line-strong); font-size: 0.9rem; padding: 0.6rem 1rem; border-radius: 10px; transition: background 0.15s, border-color 0.15s; }
+                .quick-action-btn:hover { background: var(--ui-bg); border-color: var(--ui-accent); }
+
+                .recent-alumno-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--ui-line); }
+                .recent-alumno-row:last-child { border-bottom: none; }
+                .recent-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--ui-bg); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+                .recent-name  { font-weight: 600; font-size: 0.9rem; line-height: 1.2; }
+                .recent-meta  { font-size: 0.78rem; color: var(--ui-muted); }
+
+                .overview-item { background: var(--ui-bg); }
+                .overview-icon { font-size: 1.6rem; }
+                .overview-count { font-size: 1.5rem; }
+                .overview-bar { height: 6px; background: var(--ui-line); border-radius: 999px; overflow: hidden; }
+                .overview-bar-fill { height: 100%; border-radius: 999px; transition: width 0.8s ease; }
+            </style>
 
             <script>
             $(document).ready(function () {
+
+                function setStatValue(id, value) {
+                    var el = document.getElementById(id);
+                    if (el) el.textContent = value;
+                }
+
+                function setStatError(id) {
+                    var el = document.getElementById(id);
+                    if (el) { el.textContent = '—'; el.title = 'Error al cargar'; }
+                }
+
+                function renderRecentAlumnos(alumnos) {
+                    var container = document.getElementById('recentAlumnosList');
+                    if (!container) return;
+
+                    if (!alumnos || alumnos.length === 0) {
+                        container.innerHTML = '<p class="text-muted small text-center py-3">No hay alumnos registrados aún.</p>';
+                        return;
+                    }
+
+                    var last5 = alumnos.slice(-5).reverse();
+                    var html = last5.map(function (a) {
+                        var initials = ((a.nombre || '?')[0] + (a.apellido_paterno || '?')[0]).toUpperCase();
+                        var fullName = [a.nombre, a.apellido_paterno, a.apellido_materno].filter(Boolean).join(' ');
+                        var meta = [
+                            a.correo_electronico,
+                            a.entidad_federativa ? a.entidad_federativa.nombre_entidad : null
+                        ].filter(Boolean).join(' · ');
+                        return '<div class="recent-alumno-row">' +
+                            '<div class="recent-avatar">' + initials + '</div>' +
+                            '<div class="flex-grow-1 overflow-hidden">' +
+                            '<div class="recent-name text-truncate">' + fullName + '</div>' +
+                            '<div class="recent-meta text-truncate">' + (meta || 'Sin datos adicionales') + '</div>' +
+                            '</div>' +
+                            '</div>';
+                    }).join('');
+
+                    container.innerHTML = html;
+                }
+
+                function updateOverviewBars(counts) {
+                    var max = Math.max(counts.alumnos, counts.profesores, counts.grupos, counts.horarios, 1);
+                    function pct(n) { return Math.round((n / max) * 100) + '%'; }
+
+                    document.getElementById('overviewAlumnos').textContent   = counts.alumnos;
+                    document.getElementById('overviewProfesores').textContent = counts.profesores;
+                    document.getElementById('overviewGrupos').textContent     = counts.grupos;
+                    document.getElementById('overviewHorarios').textContent   = counts.horarios;
+
+                    // Defer so CSS transition fires after paint
+                    setTimeout(function () {
+                        document.getElementById('barAlumnos').style.width    = pct(counts.alumnos);
+                        document.getElementById('barProfesores').style.width = pct(counts.profesores);
+                        document.getElementById('barGrupos').style.width     = pct(counts.grupos);
+                        document.getElementById('barHorarios').style.width   = pct(counts.horarios);
+                    }, 100);
+                }
+
+                var counts = { alumnos: 0, profesores: 0, grupos: 0, horarios: 0 };
+                var loaded = 0;
+                var total  = 4;
+
+                function onAllLoaded() {
+                    loaded++;
+                    if (loaded === total) updateOverviewBars(counts);
+                }
+
+                // Alumnos
                 fetch('/api/alumnos')
                     .then(function (res) { return res.json(); })
                     .then(function (payload) {
-                        var count = Array.isArray(payload.data) ? payload.data.length : 0;
-                        document.getElementById('totalAlumnos').textContent = count;
+                        var data  = Array.isArray(payload.data) ? payload.data : [];
+                        counts.alumnos = data.length;
+                        setStatValue('totalAlumnos', data.length);
+                        renderRecentAlumnos(data);
+                        onAllLoaded();
                     })
                     .catch(function (err) {
                         console.error('Error al obtener alumnos:', err);
-                        document.getElementById('totalAlumnos').textContent = 'Error';
+                        setStatError('totalAlumnos');
+                        document.getElementById('recentAlumnosList').innerHTML =
+                            '<p class="text-muted small text-center py-3">No se pudo cargar la lista de alumnos.</p>';
+                        onAllLoaded();
                     });
 
+                // Profesores
                 fetch('/api/profesores')
                     .then(function (res) { return res.json(); })
                     .then(function (payload) {
-                        var count = Array.isArray(payload.data) ? payload.data.length : 0;
-                        document.getElementById('totalProfesores').textContent = count;
+                        counts.profesores = Array.isArray(payload.data) ? payload.data.length : 0;
+                        setStatValue('totalProfesores', counts.profesores);
+                        onAllLoaded();
                     })
                     .catch(function (err) {
                         console.error('Error al obtener profesores:', err);
-                        document.getElementById('totalProfesores').textContent = 'Error';
+                        setStatError('totalProfesores');
+                        onAllLoaded();
+                    });
+
+                // Grupos
+                fetch('/api/grupos')
+                    .then(function (res) { return res.json(); })
+                    .then(function (payload) {
+                        counts.grupos = Array.isArray(payload.data) ? payload.data.length : 0;
+                        setStatValue('totalGrupos', counts.grupos);
+                        onAllLoaded();
+                    })
+                    .catch(function (err) {
+                        console.error('Error al obtener grupos:', err);
+                        setStatError('totalGrupos');
+                        onAllLoaded();
+                    });
+
+                // Horarios
+                fetch('/api/horarios')
+                    .then(function (res) { return res.json(); })
+                    .then(function (payload) {
+                        counts.horarios = Array.isArray(payload.data) ? payload.data.length : 0;
+                        setStatValue('totalHorarios', counts.horarios);
+                        onAllLoaded();
+                    })
+                    .catch(function (err) {
+                        console.error('Error al obtener horarios:', err);
+                        setStatError('totalHorarios');
+                        onAllLoaded();
                     });
             });
             </script>
