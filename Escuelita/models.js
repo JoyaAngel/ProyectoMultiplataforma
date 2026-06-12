@@ -144,9 +144,53 @@ Alumno.belongsTo(Entidad_Federativa, {
     as: 'entidad_federativa'
 });
 
+const Horario = sequelize.define('Horario', {
+
+    id_horario: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+    dia: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: false
+    },
+    hora_inicio: {
+        type: DataTypes.TIME,
+        allowNull: false,
+        unique: false
+    },
+    hora_fin: {
+        type: DataTypes.TIME,
+        allowNull: false,
+        unique: false
+    }
+
+}, {tableName: 'horario', timestamps: false});
+
+const Grupo = sequelize.define('Grupo', {
+
+    id_grupo: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+    nombre_grupo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    }
+
+}, {tableName: 'grupo', timestamps: false});
+
 module.exports = {
     Entidad_Federativa,
     Alumno,
-    Profesor
+    Profesor,
+    Horario,
+    Grupo
 };
 

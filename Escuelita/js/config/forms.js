@@ -1,13 +1,15 @@
 export const FORMS_CONFIG = {
     alumnos: {
         title: "Registrar Alumno",
+        titleEdit: "Editar Alumno",
         endpoint: "/api/alumnos",
+        idField: "numero_cuenta",
         submitLabel: "Guardar Alumno",
         fields: [
             { name: "numero_cuenta", label: "Número de Cuenta", type: "number", required: true },
             { name: "nombre", label: "Nombre", type: "text", required: true },
             { name: "apellido_paterno", label: "Apellido Paterno", type: "text", required: true },
-            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: true },
+            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: false },
             { name: "curp", label: "CURP", type: "text", required: true },
             { name: "telefono", label: "Teléfono", type: "text", required: true },
             {
@@ -28,7 +30,7 @@ export const FORMS_CONFIG = {
                 label: "Entidad Federativa",
                 type: "select-remote",
                 required: true,
-                source: "/entidades",
+                source: "/api/entidades",
                 valueKey: "id_entidad",
                 textKey: "nombre_entidad"
             }
@@ -36,21 +38,61 @@ export const FORMS_CONFIG = {
     },
     entidades: {
         title: "Registrar Entidad",
+        titleEdit: "Editar Entidad",
         endpoint: "/api/entidades",
+        idField: "id_entidad",
         submitLabel: "Guardar Entidad",
         fields: [
             { name: "nombre_entidad", label: "Nombre", type: "text", required: true },
             { name: "abreviatura", label: "Abreviatura", type: "text", required: true }
         ]
     },
+    horarios: {
+        title: "Registrar Horario",
+        titleEdit: "Editar Horario",
+        endpoint: "/api/horarios",
+        idField: "id_horario",
+        submitLabel: "Guardar Horario",
+        fields: [
+            {
+                name: "dia",
+                label: "Día",
+                type: "select",
+                required: true,
+                options: [
+                    { value: "", text: "Seleccione" },
+                    { value: "Lunes", text: "Lunes" },
+                    { value: "Martes", text: "Martes" },
+                    { value: "Miercoles", text: "Miércoles" },
+                    { value: "Jueves", text: "Jueves" },
+                    { value: "Viernes", text: "Viernes" },
+                    { value: "Sabado", text: "Sábado" },
+                ]
+            },
+            { name: "hora_inicio", label: "Hora de inicio", type: "time", required: true },
+            { name: "hora_fin", label: "Hora de término", type: "time", required: true }
+        ]
+    },
+    grupos: {
+        title: "Registrar Grupo",
+        titleEdit: "Editar Grupo",
+        endpoint: "/api/grupos",
+        idField: "id_grupo",
+        submitLabel: "Guardar Grupo",
+        fields: [
+            { name: "nombre_grupo", label: "Nombre del grupo", type: "text", required: true }
+        ]
+    },
     profesores: {
         title: "Registrar Profesor",
+        titleEdit: "Editar Profesor",
         endpoint: "/api/profesores",
+        idField: "id_profesor",
         submitLabel: "Guardar Profesor",
         fields: [
             { name: "nombre", label: "Nombre", type: "text", required: true },
             { name: "apellido_paterno", label: "Apellido Paterno", type: "text", required: true },
-            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: true },
+            { name: "apellido_materno", label: "Apellido Materno", type: "text", required: false },
             { name: "curp", label: "CURP", type: "text", required: true },
             { name: "rfc", label: "RFC", type: "text", required: true },
             { name: "telefono", label: "Teléfono", type: "text", required: true },
